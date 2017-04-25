@@ -1,0 +1,293 @@
+{
+  "name": "incidents",
+  "datapackage_version": "1.0-beta.18",
+  "title": "Incidents",
+  "description": "Incidents reports the number of school incidents by the type of incident.",
+  "version": "1.0",
+  "licenses": [{
+    "url": "http://opendatacommons.org/licenses/pddl/",
+    "name": "Open Data Commons Public Domain",
+    "version": "1.0",
+    "id": "odc-pddl"
+  }],
+  "sources": [{
+    "name": "ctsde",
+    "web": ""
+  }],
+  "author":[{
+    "name": "Jenna Daly",
+    "email": "jdaly@ctdata.org",
+    "web": "http://ctdata.org"
+  }],
+  "contributor": [],
+  "resources": [{
+    "path": "data/incidents_2010-2016.csv",
+    "format": "csv",
+    "schema": {
+      "fields": [{
+          "name": "District",
+          "type": "string",
+          "dimension": false
+        }, {
+          "name": "FIPS",
+          "type": "string",
+          "dimension": false
+        }, {
+          "name": "Year",
+          "type": "string",
+          "dimension": false
+        }, {
+          "name": "Measure Type",
+          "type": "string",
+          "dimension": true,
+          "constraints": {
+			      "enum": [
+		        "Number"
+		        ]
+			    }
+        }, {
+          "name": "Variable",
+          "type": "string",
+          "dimension": true, 
+          "constraints": {
+		        "enum": [
+              "Incidents"
+            ]
+			    }
+        }, {
+          "name": "Incident Type",
+          "type": "string",
+          "dimension": true, 
+            "constraints": {
+		        "enum": [
+              "Violent Crimes Against Persons",
+              "School Policy Violations",
+              "Sexually Related Behavior",
+              "Personally Threatening Behavior",
+              "Theft Related Behaviors",
+              "Physical and Verbal Confrontation",
+              "Fighting and Battery",
+              "Property Damage",
+              "Weapons",
+              "Drugs, Alcohol, Tobacco"
+            ]
+			    }
+        }, { 
+          "name": "Value",
+          "type": "number",
+          "dimension": false
+        }]
+      }
+    }
+  ],
+  "last_modified": "04/24/17",
+  "ckan_extras": {
+    "full_description": {
+      "ckan_name": "Full Description",
+      "value": "Data is reported as part of the Student Disciplinary Offense Data Collection (ED166). Incidents are reported if they result in some form of sanction (In- or Out-of-school suspension, Bus suspension, or expulsion). In addition, serious incidents involving bullying, alcohol, drugs, or weapons must be reported regardless of the resulting imposed sanctions. Total incidents for each district were not provided. Charter Districts have been entered as individual districts.",
+      "type": "string"
+    },
+    "suppression": {
+      "ckan_name": "Suppression",
+      "value": "Observations of less than 5 have been suppressed.",
+      "type": "string"
+    },
+    "technical_notes": {
+      "ckan_name": "Technical Notes",
+      "value": "",
+      "type": "string"
+    },
+    "socrata": {
+      "ckan_name": "Socrata",
+      "value": "False",
+      "type": "string"
+    },
+    "socrata_url": {
+      "ckan_name": "Socrata Dataset URL",
+      "value": "",
+      "type": "string"
+    },
+    "domain": {
+      "ckan_name": "Domain",
+      "value": "Education",
+      "type": "string"
+    },
+    "subdomain": {
+      "ckan_name": "Subdomain",
+      "value": "Student Behavior",
+      "type": "string"
+    },
+    "geography": {
+      "ckan_name": "Geography",
+      "value": "District",
+      "type": "string",
+      "constraints": {"enum": ["Town", "County", "Town/County", "District", "Other"]}
+    },
+    "frequency": {
+      "ckan_name": "Frequency",
+      "value": "Annual",
+      "type": "string"
+    },
+    "years_in_catalog": {
+      "ckan_name": "Years in Catalog",
+      "value": ["2009-2010", "2010-2011", "2011-2012", "2012-2013", "2013-2014", "2014-2015", "2015-2016"],
+      "type": "array"
+    },
+    "latest_year": {
+      "ckan_name": "Latest Year Available",
+      "value": "2015-2016",
+      "type": "string"
+    },
+    "disabled_views": {
+      "ckan_name": "Disabled Views",
+      "value": [],
+      "type": "array",
+      "constraints": {"enum": ["map", "table", "bar", "line"]}
+    },
+    "units": {
+      "ckan_name": "Units",
+      "value": {
+        "Number": "",
+        "Percent": "%"
+      }
+    },
+    "expected_number_of_geographies": {
+		  "ckan_name": "Expected Number of Unique Geographies",
+		  "value": 205,
+		  "type": "string"
+		},      
+    "default": {      
+      "ckan_name": "Default",
+			"value": {
+				"Measure Type": "Number",
+		 		"District": "Connecticut",
+		 		"Year": ["2015-2016"],
+		 		"Variable": "Incidents"
+			},
+		  	"type": "object"
+    }  
+  },
+  "spot_checks": [
+    {
+      "type": "$lookup",
+      "filter": {    
+        "District": "Connecticut",
+        "Year": "2009-2010", 
+        "Variable": "Incidents", 
+        "Incident Type": "Violent Crimes Against Persons",
+        "Measure Type": "Number" 
+      },
+      "expected": {
+        "type": "$match",
+        "number type": "int",
+        "value": 618
+      } 
+    },     
+    {
+      "type": "$lookup",
+      "filter": {
+        "District": "Brooklyn School District",
+        "Year": "2010-2011", 
+        "Variable": "Incidents", 
+        "Incident Type": "Property Damage",
+        "Measure Type": "Number" 
+      },
+      "expected": {
+        "type": "$match",
+        "number type": "int",
+        "value": 6
+      } 
+    },          
+    {
+      "type": "$lookup",
+      "filter": {
+        "District": "Derby School District",
+        "Year": "2011-2012", 
+        "Variable": "Incidents", 
+        "Incident Type": "Drugs, Alcohol, Tobacco",
+        "Measure Type": "Number" 
+      },
+      "expected": {
+        "type": "$match",
+        "number type": "int",
+        "value": -9999
+      } 
+    },          
+    {
+      "type": "$lookup",
+      "filter": {
+        "District": "LEARN",
+        "Year": "2012-2013", 
+        "Variable": "Incidents", 
+        "Incident Type": "Personally Threatening Behavior",
+        "Measure Type": "Number" 
+      },
+      "expected": {
+        "type": "$match",
+        "number type": "int",
+        "value": 11
+      } 
+    },          
+    {
+      "type": "$lookup",
+      "filter": {
+        "District": "Regional School District 12",
+        "Year": "2013-2014", 
+        "Variable": "Incidents", 
+        "Incident Type": "Sexually Related Behavior",
+        "Measure Type": "Number" 
+      },
+      "expected": {
+        "type": "$match",
+        "number type": "int",
+        "value": -9999
+      } 
+    },          
+    {
+      "type": "$lookup",
+      "filter": {
+        "District": "Trailblazers Academy District",
+        "Year": "2014-2015", 
+        "Variable": "Incidents", 
+        "Incident Type": "Weapons",
+        "Measure Type": "Number" 
+      },
+      "expected": {
+        "type": "$match",
+        "number type": "int",
+        "value": 0
+      } 
+    },          
+    {
+      "type": "$lookup",
+      "filter": {
+        "District": "Woodbridge School District",
+        "Year": "2015-2016",
+        "Variable": "Incidents", 
+        "Incident Type": "Fighting and Battery",
+        "Measure Type": "Number" 
+      },
+      "expected": {
+        "type": "$match",
+        "number type": "int",
+        "value": 0
+      } 
+    }        
+  ],
+  "dimension_groups": [
+    {
+      "Incident Type": [
+        "Violent Crimes Against Persons",
+        "School Policy Violations",
+        "Sexually Related Behavior",
+        "Personally Threatening Behavior",
+        "Theft Related Behaviors",
+        "Physical and Verbal Confrontation",
+        "Fighting and Battery",
+        "Property Damage",
+        "Weapons",
+        "Drugs, Alcohol, Tobacco"       
+      ]
+    }
+  ]
+}
