@@ -44,7 +44,7 @@ for (i in 1:length(incidents_state_noTrend)) {
   get_year <- as.numeric(substr(unique(unlist(gsub("[^0-9]", "", unlist(incidents_state_noTrend[i])), "")), 1, 4))
   get_year <- paste0(get_year, "-", get_year + 1) 
   current_file$Year <- get_year
-  incidents_state <- rbind(incidents_dist, current_file)
+  incidents_state <- rbind(incidents_state, current_file)
 }
 
 #Combine district and state
@@ -68,7 +68,8 @@ years <- c("2009-2010",
            "2012-2013",
            "2013-2014",
            "2014-2015",
-           "2015-2016")
+           "2015-2016", 
+           "2016-2017")
 
 backfill_years <- expand.grid(
   `FixedDistrict` = unique(districts$`FixedDistrict`),
@@ -137,13 +138,13 @@ complete_incidents_long <- complete_incidents_long %>%
   select(`District`, `FIPS`, `Year`, `Incident Type`, `Variable`, `Measure Type`, `Value`)
 
 #Use this to find if there are any duplicate entires for a given district
-# test <- complete_incidents_long[,c("District", "Year", "Incident Type")]
-# test2<-test[duplicated(test), ]
+#test <- complete_incidents_long[,c("District", "Year", "Incident Type")]
+#test2<-test[duplicated(test), ]
 
 #Write CSV
 write.table(
   complete_incidents_long,
-  file.path(getwd(), "data", "incidents_2010-2016.csv"),
+  file.path(getwd(), "data", "incidents_2010-2017.csv"),
   sep = ",",
   row.names = F
 )

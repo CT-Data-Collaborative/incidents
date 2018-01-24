@@ -1,7 +1,5 @@
 Incidents
 
-[![Build Status](https://travis-ci.org/CT-Data-Collaborative/incidents.svg?branch=master)](https://travis-ci.org/CT-Data-Collaborative/incidents)
-
 Incidents reports the number of school incidents by the type of incident.
 
 Data Source: <http://edsight.ct.gov/>
