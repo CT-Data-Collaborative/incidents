@@ -21,7 +21,7 @@
   }],
   "contributor": [],
   "resources": [{
-    "path": "data/incidents_2010-2017.csv",
+    "path": "data/incidents_2010-2020.csv",
     "format": "csv",
     "schema": {
       "fields": [{
